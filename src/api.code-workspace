@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "api",
+			"path": "../../my-project/api"
+		},
+		{
+			"name": "Blackjack",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
