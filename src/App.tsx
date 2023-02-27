@@ -6,6 +6,7 @@ import Header from './Header'
 import Test from './test'
 import PopCard from './popup'
 import { atom , useAtom } from 'jotai'
+import Input from './input'
 
 let bet = 100;
 let object: card = {
@@ -37,7 +38,7 @@ const CardArray = createContext(null) as any;
 const CompCard = createContext(null) as any;
 const TotalAmount = createContext(null) as any;
 const roundsWon = atom(0);
-const AtomBet = atom(100);
+export const AtomBet = atom(100);
 const Amount = atom(1000);
 
 const roundsLost = atom(0);
@@ -92,6 +93,7 @@ const App = () => {
             <Stats_SideBar /> 
             <The_game /> 
             <Contorls />
+            <Input />
             </main >
         </div >
          </CardArray.Provider >
@@ -114,7 +116,6 @@ function Contorls() {
     const [amount , setAmount] = useAtom(Amount)
 
  function addCard() {
-
     let object = {
         typeVal: Math.floor((Math.random() * 4) + 1),
         numericVal: (Math.floor((Math.random() * 13) + 1))
@@ -185,7 +186,7 @@ const  Stats_SideBar = () => {
     const [roundWon ] = useAtom(roundsWon);
     const [roundLost ] = useAtom(roundsLost);
     const [Total] =  useAtom(Amount);
-
+    const [bet] = useAtom(AtomBet)
     return (<div id="stats" className='grid grid-rows-6 h-[92vh] pr-8'>
     <h2 className='text-3xl font-poppins font-bold py-2 text-[#ded5d6] text-right'>Bet: <span className='text-[#c7b1c9]'>${bet}</span> </h2>
     <div className='row-span-3 '></div>
