@@ -73,7 +73,7 @@ const App = () => {
             setBlur("")
         }
     }, [result])
-   
+
 
   
     const [playerCard , compCard] = getCards() ;

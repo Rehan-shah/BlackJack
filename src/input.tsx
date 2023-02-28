@@ -6,6 +6,7 @@ import {AtomBet , popupVibsility} from "./App"
 const input = ({ visbility } : {visbility : boolean}) => {
 const [bet , setBet] = useAtom(AtomBet);
 const [,setVisbility] = useAtom(popupVibsility)
+
 return(
     visbility   && ( <div className={`w-64 bg-green-500 h-52 rounded-2xl m-auto top-0 bottom-0 left-0 right-0 absolute z-50 py-5`} >
     <h1 className="text-center px-14 text-xl pt-2 pb-4  font-semibold font-poppins">Edit your bet</h1>  
