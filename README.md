@@ -8,3 +8,4 @@ global state manger react (Jotai)
 
 ## Update Log  ##
 -  v0.001 (1st commit )
+-  v1 (public version0
