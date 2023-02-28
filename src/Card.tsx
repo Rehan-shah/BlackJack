@@ -3,7 +3,7 @@ import React from "react";
 const Card = ({ card, z_index }: {  card : card, z_index: number }) => {
     let cardSymboll = ["club", "spade", "heart", "diamond"]
     let tempCard = { ...card }
-    let url = "../src/assets/" + cardSymboll[card.typeVal - 1] + ".png"
+    let url = "/src/assets/" + cardSymboll[card.typeVal - 1] + ".png"
     const z = "z-" + (90 - (z_index * 10))
     let color = "";
 

@@ -6,6 +6,7 @@ import Header from './Header'
 import Test from './test'
 import PopCard from './popup'
 import { atom , useAtom } from 'jotai'
+import Input from './input'
 
 let bet = 100;
 let object: card = {
@@ -37,9 +38,9 @@ const CardArray = createContext(null) as any;
 const CompCard = createContext(null) as any;
 const TotalAmount = createContext(null) as any;
 const roundsWon = atom(0);
-const AtomBet = atom(100);
+export const AtomBet = atom(100);
 const Amount = atom(1000);
-
+export const popupVibsility = atom<boolean>(false);
 const roundsLost = atom(0);
 const compTotalAmount = createContext(null) as any;
 
@@ -63,8 +64,8 @@ function getCards() {
 
 const App = () => {
     const [blur , setBlur] = useState("");
-    const [result ] = useAtom(TheResult)
-      
+    const [result ] = useAtom(TheResult);
+    const [visbility] = useAtom(popupVibsility);  
     useEffect(() => {
         if(result !== "null"){
             setBlur("blur")
@@ -72,7 +73,7 @@ const App = () => {
             setBlur("")
         }
     }, [result])
-   
+
 
   
     const [playerCard , compCard] = getCards() ;
@@ -92,6 +93,7 @@ const App = () => {
             <Stats_SideBar /> 
             <The_game /> 
             <Contorls />
+            <Input visbility={visbility} />
             </main >
         </div >
          </CardArray.Provider >
@@ -113,8 +115,8 @@ function Contorls() {
     const [bet ,setBet] = useAtom(AtomBet);
     const [amount , setAmount] = useAtom(Amount)
 
+    
  function addCard() {
-
     let object = {
         typeVal: Math.floor((Math.random() * 4) + 1),
         numericVal: (Math.floor((Math.random() * 13) + 1))
@@ -168,16 +170,16 @@ function reset(){
                  className="text-center rounded-2xl px-14 text-lg border-[#ded5d6] border-2 font-poppins  w-2/4 mt-3  flex justify-center align-middle leading-relaxed py-1" ><p className=' whitespace-nowrap block text-ellipsis text-[#404041]'>Hit</p></button>
                 <button onClick={() => { compPlay(); setTimeout(check,800 ); setTimeout(reset , 1800) }}
                    className="text-center rounded-2xl px-14 text-lg border-[#ded5d6] border-2 font-poppins  w-2/4 mt-3  flex justify-center align-middle leading-relaxed py-1" ><p className=' whitespace-nowrap block text-ellipsis text-[#404041]'>Stand</p></button>
-                <Button>Edit Bet</Button>
+                    <Button>Edit Bet</Button>
             </div>
         </div>
     )
 }
 
  const Button = ({ children} : { children : string}) => {
-
+    const [,setVisbility] = useAtom(popupVibsility);
     return (
-        <button className="text-center rounded-2xl px-14 text-lg border-[#ded5d6] border-2 font-poppins  w-2/4 mt-3  flex justify-center align-middle leading-relaxed py-1" ><p className=' whitespace-nowrap block text-ellipsis text-[#404041]'>{children}</p></button>
+        <button onClick={() => setVisbility(true)}className="text-center rounded-2xl px-14 text-lg border-[#ded5d6] border-2 font-poppins  w-2/4 mt-3  flex justify-center align-middle leading-relaxed py-1" ><p className=' whitespace-nowrap block text-ellipsis text-[#404041]'>{children}</p></button>
     )
 }
 
@@ -185,7 +187,7 @@ const  Stats_SideBar = () => {
     const [roundWon ] = useAtom(roundsWon);
     const [roundLost ] = useAtom(roundsLost);
     const [Total] =  useAtom(Amount);
-
+    const [bet] = useAtom(AtomBet)
     return (<div id="stats" className='grid grid-rows-6 h-[92vh] pr-8'>
     <h2 className='text-3xl font-poppins font-bold py-2 text-[#ded5d6] text-right'>Bet: <span className='text-[#c7b1c9]'>${bet}</span> </h2>
     <div className='row-span-3 '></div>
