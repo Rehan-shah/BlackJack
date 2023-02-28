@@ -40,7 +40,7 @@ const TotalAmount = createContext(null) as any;
 const roundsWon = atom(0);
 export const AtomBet = atom(100);
 const Amount = atom(1000);
-
+export const popupVibsility = atom<boolean>(false);
 const roundsLost = atom(0);
 const compTotalAmount = createContext(null) as any;
 
@@ -64,8 +64,8 @@ function getCards() {
 
 const App = () => {
     const [blur , setBlur] = useState("");
-    const [result ] = useAtom(TheResult)
-      
+    const [result ] = useAtom(TheResult);
+    const [visbility] = useAtom(popupVibsility);  
     useEffect(() => {
         if(result !== "null"){
             setBlur("blur")
@@ -93,7 +93,7 @@ const App = () => {
             <Stats_SideBar /> 
             <The_game /> 
             <Contorls />
-            <Input />
+            <Input visbility={visbility} />
             </main >
         </div >
          </CardArray.Provider >
@@ -115,6 +115,7 @@ function Contorls() {
     const [bet ,setBet] = useAtom(AtomBet);
     const [amount , setAmount] = useAtom(Amount)
 
+    
  function addCard() {
     let object = {
         typeVal: Math.floor((Math.random() * 4) + 1),
@@ -169,16 +170,16 @@ function reset(){
                  className="text-center rounded-2xl px-14 text-lg border-[#ded5d6] border-2 font-poppins  w-2/4 mt-3  flex justify-center align-middle leading-relaxed py-1" ><p className=' whitespace-nowrap block text-ellipsis text-[#404041]'>Hit</p></button>
                 <button onClick={() => { compPlay(); setTimeout(check,800 ); setTimeout(reset , 1800) }}
                    className="text-center rounded-2xl px-14 text-lg border-[#ded5d6] border-2 font-poppins  w-2/4 mt-3  flex justify-center align-middle leading-relaxed py-1" ><p className=' whitespace-nowrap block text-ellipsis text-[#404041]'>Stand</p></button>
-                <Button>Edit Bet</Button>
+                    <Button>Edit Bet</Button>
             </div>
         </div>
     )
 }
 
  const Button = ({ children} : { children : string}) => {
-
+    const [,setVisbility] = useAtom(popupVibsility);
     return (
-        <button className="text-center rounded-2xl px-14 text-lg border-[#ded5d6] border-2 font-poppins  w-2/4 mt-3  flex justify-center align-middle leading-relaxed py-1" ><p className=' whitespace-nowrap block text-ellipsis text-[#404041]'>{children}</p></button>
+        <button onClick={() => setVisbility(true)}className="text-center rounded-2xl px-14 text-lg border-[#ded5d6] border-2 font-poppins  w-2/4 mt-3  flex justify-center align-middle leading-relaxed py-1" ><p className=' whitespace-nowrap block text-ellipsis text-[#404041]'>{children}</p></button>
     )
 }
 
