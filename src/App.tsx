@@ -15,8 +15,12 @@ let object: card = {
 }
 
 function getTotal(player: unCard[]) {
-  let y: number[] = player.map((item, i) => (item.numericVal));
-  let x = y.reduce((sum, item) => (sum + item))
+  const correct = (num : number) => {
+    return (num>10 ? 10 : num)
+  }
+
+  let y: number[] = player.map((item, i) => correct(item.numericVal));
+  let x = y.reduce((sum, item) => sum + item);
 
   return x;
 }
